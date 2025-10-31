@@ -1,5 +1,5 @@
 
-FROM adoptopenjdk/openjdk11:alpine-jre
+FROM eclipse-temurin:11-jre
 
 # Download and install jars
 ADD https://github.com/javasoze/clue/releases/download/release-6.2.0-1.0.0/clue-6.2.0-1.0.0.jar /opt/
@@ -14,5 +14,6 @@ RUN ls /opt/
 RUN ls -R /work/
 
 # Parse default index file (will be overriden by cli parameters)
+# CMD ["sh", "java --illegal-access=permit -jar /opt/clue-6.2.0-1.0.0.jar $WORKDIR/indexes/ info"] 
 CMD ["sh", "/opt/extract_indexes.sh", "/work/nexus-maven-repository-index.gz"]
 

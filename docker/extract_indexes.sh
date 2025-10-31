@@ -67,39 +67,42 @@ else
     java --illegal-access=permit -jar $clue $WORKDIR/indexes/ export $WORKDIR/export/ text 2>&1 | grep -v WARNING
 fi
 
+echo "Generating terms.txt"
+java --illegal-access=permit -jar $clue $WORKDIR/indexes/ terms u  | grep "|pom" > $WORKDIR/terms.txt
+
 localtime=$(date +"%Y-%m-%d %H:%M:%S")
 echo "Exporting finished on $localtime."
 
-echo "#############################"
+# echo "#############################"
 
-echo "Cleaning useless files."
+# echo "Cleaning useless files."
 
-echo "Size before cleaning:"
-du -sh $WORKDIR/*
+# echo "Size before cleaning:"
+# du -sh $WORKDIR/*
 
-# We might want or not to delete the indexes
-# Remember that when they're not present, everything
-# gets recomputed every run..
-#echo "* Removing indexes."
-#rm -rf $WORKDIR/indexes/
+# # We might want or not to delete the indexes
+# # Remember that when they're not present, everything
+# # gets recomputed every run..
+# #echo "* Removing indexes."
+# #rm -rf $WORKDIR/indexes/
 
-# If files others than the .fld one are required, please comment
-# the following lines.
-echo "* Removing useless exports."
-echo "  Keeping only fld text extract."
-rm -f $WORKDIR/export/*.inf
-rm -f $WORKDIR/export/*.len
-rm -f $WORKDIR/export/*.pst
-rm -f $WORKDIR/export/*.si
-rm -f $WORKDIR/export/segments*
+# # If files others than the .fld one are required, please comment
+# # the following lines.
+# echo "* Removing useless exports."
+# echo "  Keeping only fld text extract."
+# rm -f $WORKDIR/export/*.inf
+# rm -f $WORKDIR/export/*.len
+# rm -f $WORKDIR/export/*.pst
+# rm -f $WORKDIR/export/*.si
+# rm -f $WORKDIR/export/segments*
 
-echo "  Size after cleaning:"
-du -sh $WORKDIR/*
+# echo "  Size after cleaning:"
+# du -sh $WORKDIR/*
 
-echo "* Make files modifiable by the end-user."
-chmod -R 777 $WORKDIR/export/
-chmod -R 777 $WORKDIR/indexes/
+# echo "* Make files modifiable by the end-user."
+# chmod -R 777 $WORKDIR/export/
+# chmod -R 777 $WORKDIR/indexes/
 
-localtime=$(date +"%Y-%m-%d %H:%M:%S")
-echo "Docker Script execution finished on $localtime."
+# localtime=$(date +"%Y-%m-%d %H:%M:%S")
+# echo "Docker Script execution finished on $localtime."
 
