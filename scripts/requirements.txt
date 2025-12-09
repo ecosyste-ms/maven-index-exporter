@@ -20,7 +20,7 @@ requests==2.32.5
     #   docker
 six==1.17.0
     # via -r requirements.in
-urllib3==2.5.0
+urllib3==2.6.0
     # via
     #   -r requirements.in
     #   docker
